@@ -31,7 +31,13 @@ describe('PersonajesPage', () => {
     await TestBed.configureTestingModule({
       imports: [PersonajesPage],
       providers: [{ provide: PersonajeRepository, useValue: repository }],
-    }).compileComponents();
+    })
+      .overrideComponent(PersonajesPage, {
+        add: {
+          providers: [{ provide: PersonajeRepository, useValue: repository }],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(PersonajesPage);
     component = fixture.componentInstance;

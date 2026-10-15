@@ -21,6 +21,15 @@ export const routes: Routes = [
         exposedModule: './PaginaCentralMisiones',
       }).then((module) => module.PaginaCentralMisiones),
   },
+  {
+    path: 'personajes',
+    loadComponent: () => 
+      loadRemoteModule({
+        type: 'module',
+        remoteEntry: 'http://localhost:4202/remoteEntry.js',
+        exposedModule: './PersonajesPage',
+      }).then((module) => module.PersonajesPage),
+  },
   { path: '', redirectTo: 'lol', pathMatch: 'full' },
   { path: '**', redirectTo: 'lol' },
 ];

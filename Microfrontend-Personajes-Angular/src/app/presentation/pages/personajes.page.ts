@@ -6,6 +6,7 @@ import { GetPersonajesByIdUsecase } from '../../core/application/usecases/get-pe
 import { GetPersonajesByRoleUsecase } from '../../core/application/usecases/get-personajes-by-role.usecase';
 import { PersonajeRepository } from '../../core/domain/repositories/personaje.repository';
 import { Personaje, RolCategoria } from '../../core/domain/models/personaje.model';
+import { PersonajeNodeRepositoryImpl } from '../../core/infraestructure/repositories/personaje-node.repository.impl';
 import { State } from '../interfaces/state.interface';
 
 /** Roles disponibles en el selector de filtros de la página. */
@@ -22,6 +23,7 @@ const ROLES: RolCategoria[] = ['Vanguardia', 'Ladron', 'Jefe', 'Ilusionista', 'E
   imports: [PersonajesTableComponent, AlertComponent],
   templateUrl: './personajes.page.html',
   providers: [
+    { provide: PersonajeRepository, useClass: PersonajeNodeRepositoryImpl },
     {
       provide: GetAllPersonajesUsecase,
       useFactory: (repository: PersonajeRepository) => new GetAllPersonajesUsecase(repository),
