@@ -16,11 +16,19 @@ import {
   estadosMision,
   Mision,
 } from '../../../core/dominio/modelos/mision.modelo';
+import { RepositorioMisiones } from '../../../core/dominio/repositorios/repositorio-misiones';
+import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositorios/api-misiones.repositorio';
 
 @Component({
   selector: 'app-pagina-central-misiones',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [
+    { provide: RepositorioMisiones, useClass: ApiMisionesRepositorio },
+    ObtenerTodasMisionesCasoDeUso,
+    ObtenerMisionPorIdCasoDeUso,
+    ActualizarEstadoMisionCasoDeUso,
+  ],
   template: `
     <main class="pagina-misiones">
       <header class="encabezado-pagina">

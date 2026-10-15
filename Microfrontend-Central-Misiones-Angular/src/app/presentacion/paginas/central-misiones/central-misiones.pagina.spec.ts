@@ -30,12 +30,17 @@ describe('PaginaCentralMisiones', () => {
 
     await TestBed.configureTestingModule({
       imports: [PaginaCentralMisiones],
-      providers: [
-        { provide: ObtenerTodasMisionesCasoDeUso, useValue: obtenerTodas },
-        { provide: ObtenerMisionPorIdCasoDeUso, useValue: obtenerPorId },
-        { provide: ActualizarEstadoMisionCasoDeUso, useValue: actualizarEstado },
-      ],
-    }).compileComponents();
+    })
+      .overrideComponent(PaginaCentralMisiones, {
+        set: {
+          providers: [
+            { provide: ObtenerTodasMisionesCasoDeUso, useValue: obtenerTodas },
+            { provide: ObtenerMisionPorIdCasoDeUso, useValue: obtenerPorId },
+            { provide: ActualizarEstadoMisionCasoDeUso, useValue: actualizarEstado },
+          ],
+        },
+      })
+      .compileComponents();
   });
 
   it('carga y muestra misiones al iniciar', () => {
