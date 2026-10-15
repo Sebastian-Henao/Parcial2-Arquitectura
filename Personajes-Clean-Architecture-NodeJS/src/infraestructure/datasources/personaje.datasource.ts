@@ -5,8 +5,8 @@ import { faker } from '@faker-js/faker';
  * Fuente de datos de personajes basada en datos generados con Faker.
  *
  * @remarks
- * Mantiene los favoritos en memoria durante la vida del proceso; no ofrece
- * persistencia entre reinicios.
+ * Conserva los personajes generados en memoria durante la vida del proceso;
+ * no ofrece persistencia entre reinicios.
  *
  * @see {@link Personaje}
  */
@@ -21,8 +21,7 @@ export class PersonajeDatasource {
         'Explorador'
     ];
 
-    /** Personajes añadidos a favoritos durante la ejecución actual. */
-    private favoritos: Personaje[] = [];
+    private personajes: Personaje[] = [];
 
     /**
      * Genera una lista de personajes.
@@ -31,61 +30,45 @@ export class PersonajeDatasource {
      * @returns Promesa con los personajes generados.
      */
     async getAll(countPersonajes: number): Promise<Personaje[]> {
-        const personajes: Promise<Personaje>[] = [];
-
-        for(let i = 1; i <= countPersonajes; i++) {
-            personajes.push(this.generatePersonaje(i));
+        while (this.personajes.length < countPersonajes) {
+            this.personajes.push(this.generatePersonaje(this.personajes.length + 1));
         }
-
-        return Promise.all(personajes);
+        return this.personajes.slice(0, countPersonajes);
     }
 
     /**
      * Busca un personaje por su identificador dentro de una lista generada.
      *
      * @remarks
-     * Esta fuente genera diez personajes para cada búsqueda; por ello,
-     * los datos generados en llamadas distintas no necesariamente coinciden.
+     * La búsqueda usa la misma colección en memoria que `getAll`.
      *
      * @param id - Identificador del personaje buscado.
      * @returns Promesa con el personaje encontrado o `null`.
      */
     async getById(id: number): Promise<Personaje | null> {
-        const personajes = await this.getAll(10);
-        return personajes.find(p => p.id === id) || null;
+        await this.getAll(Math.max(10, this.personajes.length));
+        return this.personajes.find(personaje => personaje.id === id) || null;
     }
 
-    /**
-     * Añade a favoritos el personaje encontrado con el identificador dado.
-     *
-     * @remarks
-     * Si el personaje no se encuentra, la operación termina sin modificar
-     * la lista de favoritos.
-     *
-     * @param personajeId - Identificador del personaje que se añadirá.
-     * @returns Promesa que se resuelve al terminar la operación.
-     */
-    async addFavorite(personajeId: number): Promise<void> {
-        const personaje = await this.getById(personajeId);
-        if(personaje) {
-            this.favoritos.push(personaje);
-        }
+    async getByRole(rol: string): Promise<Personaje[]> {
+        await this.getAll(Math.max(10, this.personajes.length));
+        return this.personajes.filter(personaje => personaje.rol === rol);
     }
 
     /**
      * Construye un personaje con datos generados aleatoriamente.
      *
      * @param id - Identificador asignado al personaje.
-     * @returns Promesa con el personaje generado.
+     * @returns El personaje generado.
      */
-    private generatePersonaje(id: number): Promise<Personaje> {
-        return Promise.resolve({
+    private generatePersonaje(id: number): Personaje {
+        return {
             id,
             nombre: faker.person.fullName(),
             alias: faker.word.noun(),
             juego: faker.company.name(),
             habilidad: faker.commerce.productName(),
             rol: faker.helpers.arrayElement(this.roles),
-        });
+        };
     }
 }

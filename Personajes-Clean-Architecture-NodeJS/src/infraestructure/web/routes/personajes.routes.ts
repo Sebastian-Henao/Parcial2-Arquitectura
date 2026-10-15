@@ -2,8 +2,8 @@ import { Router } from "express";
 import { PersonajeReposiroyImpl } from "../../repositories/personaje.repository.impl";
 import { PersonajeDatasource } from "../../datasources/personaje.datasource";
 import { GetAllPersonajesUseCase } from "../../../application/usecases/get-all-personajes.usercase";
-import { AddFavoritePersonajeUseCase } from "../../../application/usecases/add-personaje-favorite.usecase";
 import { GetPersonajeByIdUseCase } from "../../../application/usecases/get-personaje-by-id.usecase";
+import { GetPersonajesByRoleUseCase } from "../../../application/usecases/get-personajes-by-role.usecase";
 import { PersonajesController } from "../controller/personajes.controller";
 
 /**
@@ -25,16 +25,17 @@ export class PersonajesRoutes {
         const repository = new PersonajeReposiroyImpl(new PersonajeDatasource());
         const getAllPersonajes = new GetAllPersonajesUseCase(repository);
         const getPersonajesById = new GetPersonajeByIdUseCase(repository);
-        const addFavoritePersonaje = new AddFavoritePersonajeUseCase(repository);
-        const controller = new PersonajesController(getAllPersonajes, getPersonajesById, addFavoritePersonaje);
+        const getPersonajesByRole = new GetPersonajesByRoleUseCase(repository);
+        const controller = new PersonajesController(getAllPersonajes, getPersonajesById, getPersonajesByRole);
             /**
             * @openapi
             * /api/personajes/{countPersonajes}:
             *   get:
             *     summary: Obtener listado de personajes
-            *     description: Retorna una lista de personajes generados dinámicamente según la cantidad solicitada.
+            *     description: Retorna la cantidad solicitada de personajes. El conjunto se conserva en memoria mientras el servidor está activo.
             *     tags:
             *       - Personajes
+            *     operationId: getAllPersonajes
             *     parameters:
             *       - in: path
             *         name: countPersonajes
@@ -43,18 +44,16 @@ export class PersonajesRoutes {
             *           type: integer
             *           minimum: 1
             *           example: 10
-            *         description: Cantidad de personajes a generar
+            *         description: Número de personajes que se desea obtener
             *     responses:
             *       201:
-            *         description: Lista de personajes generados
+            *         description: Lista de personajes
             *         content:
             *           application/json:
             *             schema:
             *               type: array
             *               items:
             *                 $ref: '#/components/schemas/Personaje'
-            *       400:
-            *         description: Parámetro inválido
             */
 
             router.get("/:countPersonajes", controller.getAllPersonajes);
@@ -64,14 +63,18 @@ export class PersonajesRoutes {
              * /api/personajes/detail/{id}:
              *   get:
              *     summary: Obtener personaje por ID
+             *     description: Busca un personaje por su identificador.
              *     tags:
              *       - Personajes
+             *     operationId: getPersonajeById
              *     parameters:
              *       - in: path
              *         name: id
              *         required: true
              *         schema:
              *           type: integer
+             *           minimum: 1
+             *         description: Identificador del personaje
              *     responses:
              *       200:
              *         description: Personaje encontrado
@@ -86,29 +89,40 @@ export class PersonajesRoutes {
 
             /**
              * @openapi
-             * /api/personajes/favoritos:
-             *   post:
-             *     summary: Agregar personaje a favoritos
+             * /api/personajes/rol/{rol}:
+             *   get:
+             *     summary: Filtrar personajes por rol
+             *     description: Retorna los personajes cuyo rol coincide con el valor indicado.
              *     tags:
              *       - Personajes
-             *     requestBody:
-             *       required: true
-             *       content:
-             *         application/json:
-             *           schema:
-             *             type: object
-             *             required:
-             *               - personajeId
-             *             properties:
-             *               personajeId:
-             *                 type: integer
-             *                 example: 1
+             *     operationId: getPersonajesByRole
+             *     parameters:
+             *       - in: path
+             *         name: rol
+             *         required: true
+             *         description: Categoría de rol por la que se filtran los personajes
+             *         schema:
+             *           type: string
+             *           enum:
+             *             - Vanguardia
+             *             - Ladron
+             *             - Jefe
+             *             - Ilusionista
+             *             - Explorador
+             *           example: Vanguardia
              *     responses:
-             *       201:
-             *         description: Personaje añadido a favoritos
+             *       200:
+             *         description: Personajes que coinciden con el rol; puede ser una lista vacía
+             *         content:
+             *           application/json:
+             *             schema:
+             *               type: array
+             *               items:
+             *                 $ref: '#/components/schemas/Personaje'
+             *       400:
+             *         description: No se indicó el rol
              */
-
-            router.post("/favoritos", controller.addFavoritePersonaje);
+            router.get("/rol/:rol", controller.getPersonajesByRole);
 
             return router;
 

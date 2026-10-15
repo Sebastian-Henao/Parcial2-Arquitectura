@@ -16,7 +16,8 @@
  *         - rol
  *       properties:
  *         id:
- *           type: number
+ *           type: integer
+ *           format: int32
  *           example: 1
  *         nombre:
  *           type: string

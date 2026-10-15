@@ -1,6 +1,6 @@
-import { AddFavoritePersonajeUseCase } from "../../../application/usecases/add-personaje-favorite.usecase";
 import { GetAllPersonajesUseCase } from "../../../application/usecases/get-all-personajes.usercase";
 import { GetPersonajeByIdUseCase } from "../../../application/usecases/get-personaje-by-id.usecase";
+import { GetPersonajesByRoleUseCase } from "../../../application/usecases/get-personajes-by-role.usecase";
 import { json, Request, Response } from "express"
 import { HandleError } from "../erros/handle.error";
 
@@ -17,12 +17,12 @@ export class PersonajesController {
      *
      * @param getAllPersonajesUseCase - Caso de uso para listar personajes.
      * @param getPersonajeByIdUseCase - Caso de uso para consultar un personaje.
-     * @param addFavoritePersonajeUseCase - Caso de uso para agregar favoritos.
+     * @param getPersonajesByRoleUseCase - Caso de uso para filtrar por rol.
      */
     constructor(
         private getAllPersonajesUseCase: GetAllPersonajesUseCase,
         private getPersonajeByIdUseCase: GetPersonajeByIdUseCase,
-        private addFavoritePersonajeUseCase: AddFavoritePersonajeUseCase
+        private getPersonajesByRoleUseCase: GetPersonajesByRoleUseCase
     ) {}
 
     /**
@@ -65,21 +65,18 @@ export class PersonajesController {
         }, 3000)
     }
 
-    /**
-     * Atiende la solicitud para agregar un personaje a favoritos.
-     *
-     * @param req - Solicitud Express cuyo cuerpo contiene `personajeId`.
-     * @param res - Respuesta Express que confirma la operación o informa
-     * de un error.
-     */
-    addFavoritePersonaje = (req: Request, res: Response): void => {
-        const { personajeId } = req.body;
+    getPersonajesByRole = (req: Request, res: Response): void => {
+        const { rol } = req.params;
+        if (!rol) {
+            res.status(400).json({ message: "El rol es requerido" });
+            return;
+        }
 
         setTimeout(() => {
-            this.addFavoritePersonajeUseCase
-            .execute(Number(personajeId))
-            .then(() => res.status(201).json({ message: "Personaje añadido a favoritos" }))
+            this.getPersonajesByRoleUseCase
+            .execute(rol)
+            .then((personajes) => res.status(200).json(personajes))
             .catch((error) => HandleError.error(error, res));
-        });
+        }, 3000);
     }
 }

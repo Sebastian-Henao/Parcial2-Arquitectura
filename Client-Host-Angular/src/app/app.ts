@@ -17,6 +17,7 @@ export class App {
     navLinks: [
       { text: 'LoL · Junglers', url: '/lol' },
       { text: 'Central de Misiones', url: '/misiones' },
+      { text: 'Personajes', url: '/personajes' }
     ],
   };
 }
