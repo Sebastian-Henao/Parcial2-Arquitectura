@@ -90,6 +90,7 @@ import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositori
         max-width: 76rem;
         margin: 0 auto;
         padding: 2rem 1.5rem 4rem;
+        color: #e8eef7;
       }
 
       .encabezado-pagina,
@@ -107,9 +108,28 @@ import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositori
         margin-top: 0;
       }
 
+      h1,
+      h2,
+      h3 {
+        color: #f8fafc;
+      }
+
       h1 {
         margin-bottom: 0.5rem;
         font-size: clamp(2rem, 5vw, 3.5rem);
+      }
+
+      .encabezado-pagina h1,
+      .lista-misiones > h2 {
+        color: #10243a;
+      }
+
+      .encabezado-pagina .eyebrow {
+        color: #0369a1;
+      }
+
+      .encabezado-pagina > div > p:last-child {
+        color: #475569;
       }
 
       h2 {
@@ -119,6 +139,7 @@ import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositori
       .distribucion-misiones {
         display: grid;
         grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.8fr);
+        align-items: start;
         gap: 1.5rem;
         margin-top: 2rem;
       }
@@ -126,31 +147,63 @@ import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositori
       .tarjeta-mision,
       .detalle-mision {
         padding: 1.25rem;
-        border: 1px solid #25354b;
+        border: 1px solid #344a65;
         border-radius: 1rem;
-        background: #101c2e;
+        background: #17263b;
       }
 
       .tarjeta-mision + .tarjeta-mision {
-        margin-top: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .tarjeta-mision {
+        border-left: 4px solid #38bdf8;
+        box-shadow: 0 8px 20px rgb(15 23 42 / 12%);
+      }
+
+      .tarjeta-mision h3 {
+        margin-bottom: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .encabezado-tarjeta {
+        align-items: flex-start;
       }
 
       .tarjeta-mision p,
       .detalle-mision p {
         color: #b6c3d4;
+        line-height: 1.5;
       }
 
       .amenaza,
       .estado {
-        color: #8be9fd;
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        border-radius: 999px;
+        background: #123b51;
+        color: #a5f3fc;
         font-size: 0.85rem;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .amenaza {
+        flex: 0 0 auto;
+        padding: 0.35rem 0.65rem;
+      }
+
+      .estado {
+        padding: 0.3rem 0.7rem;
+        text-transform: capitalize;
       }
 
       button,
       select {
-        border: 1px solid #3e5875;
+        border: 1px solid #4b6583;
         border-radius: 0.5rem;
-        background: #17283d;
+        background: #223b57;
         color: #f4f7fb;
         font: inherit;
         padding: 0.6rem 0.8rem;
@@ -158,11 +211,23 @@ import { ApiMisionesRepositorio } from '../../../core/infraestructura/repositori
 
       button {
         cursor: pointer;
+        transition: background-color 150ms ease, border-color 150ms ease;
+      }
+
+      button:hover {
+        border-color: #7dd3fc;
+        background: #28506e;
+      }
+
+      button:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #38bdf8;
+        outline-offset: 2px;
       }
 
       .tarjeta-mision button {
         display: block;
-        margin-top: 0.8rem;
+        margin-top: 1rem;
       }
 
       .detalle-mision dl {
