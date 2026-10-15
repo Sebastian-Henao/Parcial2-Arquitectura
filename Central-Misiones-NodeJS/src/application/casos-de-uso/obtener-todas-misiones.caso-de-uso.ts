@@ -1,0 +1,10 @@
+import { Mision } from '../../domain/entities/mision';
+import { RepositorioMisiones } from '../../domain/repositories/mision.repository';
+
+export class ObtenerTodasMisiones {
+  constructor(private readonly misiones: RepositorioMisiones) {}
+
+  ejecutar(): Promise<Mision[]> {
+    return this.misiones.obtenerTodas();
+  }
+}
