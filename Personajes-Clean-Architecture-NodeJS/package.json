@@ -1,5 +1,5 @@
 {
-    "name": "server-MarvelRivals-nodejs",
+    "name": "server-personajes-nodejs",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -19,6 +19,7 @@
         "swagger-ui-express": "^5.0.1"
     },
     "devDependencies": {
+        "@faker-js/faker": "10.1.0",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
         "@types/swagger-jsdoc": "^6.0.4",
