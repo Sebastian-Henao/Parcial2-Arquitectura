@@ -1,5 +1,11 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
+/**
+ * Especificación OpenAPI generada a partir de la configuración y anotaciones
+ * de rutas y esquemas del proyecto.
+ *
+ * @see {@link https://swagger.io/specification/}
+ */
 export const swaggerSpec = swaggerJSDoc({
     definition: {
         openapi: '3.0.0',

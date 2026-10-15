@@ -4,13 +4,34 @@ import { GetPersonajeByIdUseCase } from "../../../application/usecases/get-perso
 import { json, Request, Response } from "express"
 import { HandleError } from "../erros/handle.error";
 
+/**
+ * Controlador HTTP para las operaciones de personajes.
+ *
+ * @remarks
+ * Traduce solicitudes y respuestas de Express a llamadas a los casos de uso
+ * de la aplicación. No implementa la lógica de acceso a datos.
+ */
 export class PersonajesController {
+    /**
+     * Crea el controlador con los casos de uso que atenderán las solicitudes.
+     *
+     * @param getAllPersonajesUseCase - Caso de uso para listar personajes.
+     * @param getPersonajeByIdUseCase - Caso de uso para consultar un personaje.
+     * @param addFavoritePersonajeUseCase - Caso de uso para agregar favoritos.
+     */
     constructor(
         private getAllPersonajesUseCase: GetAllPersonajesUseCase,
         private getPersonajeByIdUseCase: GetPersonajeByIdUseCase,
         private addFavoritePersonajeUseCase: AddFavoritePersonajeUseCase
     ) {}
 
+    /**
+     * Atiende la consulta de una cantidad de personajes.
+     *
+     * @param req - Solicitud Express con `countPersonajes` en los parámetros
+     * de ruta.
+     * @param res - Respuesta Express donde se envía el listado o un error.
+     */
     getAllPersonajes = (req: Request, res: Response): void => {
         const { countPersonajes } = req.params;
 
@@ -22,6 +43,12 @@ export class PersonajesController {
         }, 3000);
     };
 
+    /**
+     * Atiende la consulta de un personaje por identificador.
+     *
+     * @param req - Solicitud Express con `id` en los parámetros de ruta.
+     * @param res - Respuesta Express con el personaje, un 404 o un error.
+     */
     getPersonajeById = (req: Request, res: Response): void => {
         const { id } = req.params;
 
@@ -38,6 +65,13 @@ export class PersonajesController {
         }, 3000)
     }
 
+    /**
+     * Atiende la solicitud para agregar un personaje a favoritos.
+     *
+     * @param req - Solicitud Express cuyo cuerpo contiene `personajeId`.
+     * @param res - Respuesta Express que confirma la operación o informa
+     * de un error.
+     */
     addFavoritePersonaje = (req: Request, res: Response): void => {
         const { personajeId } = req.body;
 

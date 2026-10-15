@@ -5,6 +5,13 @@ import path from "path";
 import swaggerUi from 'swagger-ui-express';
 import { Options } from "./interfaces/server.interface";
 
+/**
+ * Configura y ejecuta el servidor HTTP de la aplicación.
+ *
+ * @remarks
+ * Centraliza los middlewares, los recursos estáticos, las rutas de la API,
+ * la interfaz de Swagger y el fallback de la aplicación web.
+ */
 export class Server {
     /** Instancia de Express */
     public readonly app = express();
@@ -13,6 +20,11 @@ export class Server {
     private readonly publicPath: string;
     private readonly routes: Router;
 
+    /**
+     * Crea el servidor a partir de la configuración recibida.
+     *
+     * @param options - Puerto, carpeta pública y enrutador de la aplicación.
+     */
     constructor(options: Options) {
         const { port, publicPath, routes } = options;
         this.port = port;
@@ -20,6 +32,11 @@ export class Server {
         this.routes = routes;
     }
 
+    /**
+     * Registra middlewares y rutas, y comienza a escuchar solicitudes HTTP.
+     *
+     * @returns Promesa de inicialización del servidor.
+     */
     async start(): Promise<void> {
         //* Middlewares
         this.app.use(cors());

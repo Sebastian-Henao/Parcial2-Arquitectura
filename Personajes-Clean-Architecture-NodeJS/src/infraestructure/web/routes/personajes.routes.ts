@@ -6,7 +6,20 @@ import { AddFavoritePersonajeUseCase } from "../../../application/usecases/add-p
 import { GetPersonajeByIdUseCase } from "../../../application/usecases/get-personaje-by-id.usecase";
 import { PersonajesController } from "../controller/personajes.controller";
 
+/**
+ * Define los endpoints HTTP relacionados con personajes.
+ *
+ * @remarks
+ * Construye las dependencias de infraestructura y las conecta con los
+ * casos de uso y el controlador. Las rutas OpenAPI se documentan junto
+ * a cada endpoint.
+ */
 export class PersonajesRoutes {
+    /**
+     * Crea el enrutador de personajes y registra sus endpoints.
+     *
+     * @returns Enrutador Express con las operaciones de personajes.
+     */
     static get routes(): Router {
         const router = Router();
         const repository = new PersonajeReposiroyImpl(new PersonajeDatasource());

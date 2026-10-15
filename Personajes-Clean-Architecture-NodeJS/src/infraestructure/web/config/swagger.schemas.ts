@@ -1,4 +1,6 @@
 /**
+ * Esquemas OpenAPI reutilizables de la API.
+ *
  * @openapi
  * components:
  *   schemas:
