@@ -55,6 +55,15 @@ describe('JunglersPage', () => {
     expect(fixture.nativeElement.querySelector('[role="alert"]')).not.toBeNull();
   });
 
+  it('requests the catalog filtered by the selected role', () => {
+    fixture.detectChanges();
+    fixture.componentInstance.selectedRole = 'Asesino';
+
+    fixture.componentInstance.loadJunglers();
+
+    expect(jest.mocked(getAll.execute)).toHaveBeenLastCalledWith('Asesino');
+  });
+
   it('filters the list by difficulty and can reset the filter', () => {
     fixture.detectChanges();
     const page = fixture.componentInstance;
@@ -64,6 +73,18 @@ describe('JunglersPage', () => {
     page.selectedDifficulty = '';
     page.filterByDifficulty();
     expect(jest.mocked(getAll.execute)).toHaveBeenCalledTimes(2);
+  });
+
+  it('shows a recoverable error when the difficulty filter request fails', () => {
+    fixture.detectChanges();
+    jest.mocked(getByDifficulty.execute).mockReturnValue(throwError(() => new Error('offline')));
+    fixture.componentInstance.selectedDifficulty = '3';
+
+    fixture.componentInstance.filterByDifficulty();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="alert"]').textContent)
+      .toContain('No fue posible filtrar los campeones');
   });
 
   it('loads and closes champion details', () => {
