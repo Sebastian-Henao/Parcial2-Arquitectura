@@ -10,17 +10,17 @@ import { Observable } from 'rxjs';
 export class DataService {
   private httpClient = inject(HttpClient);
 
-  private nodeUrl = `${environments.baseUrlNode}/api`;
+  private readonly apiUrl = `${environments.baseUrlNode.replace(/\/$/, '')}/api`;
 
   getAllPersonajeNode(countPersonajes: number): Observable<Personaje[]> {
-    return this.httpClient.get<Personaje[]>(`${this.nodeUrl}/api/personajes${countPersonajes}`);
+    return this.httpClient.get<Personaje[]>(`${this.apiUrl}/personajes/${countPersonajes}`);
   }
 
   getPersonajesByIdNode(id: number): Observable<Personaje> {
-    return this.httpClient.get<Personaje>(`${this.nodeUrl}/api/personajes/detail/${id}`);
+    return this.httpClient.get<Personaje>(`${this.apiUrl}/personajes/detail/${id}`);
   }
 
   addFavoritePersonajeNode(personajeId: number): Observable<void> {
-    return this.httpClient.post<void>(`${this.nodeUrl}/api/personajes/favoritos`, {personajeId});
+    return this.httpClient.post<void>(`${this.apiUrl}/personajes/favoritos`, { personajeId });
   }
 }

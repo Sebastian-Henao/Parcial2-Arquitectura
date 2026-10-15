@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
-
 import { GetAllPersonajesUsecase } from './get-all-personajes.usecase';
+import { PersonajeRepository } from '../../domain/repositories/personaje.repository';
 
 describe('GetAllPersonajesUsecase', () => {
-  let service: GetAllPersonajesUsecase;
+  it('delegates the requested amount to the repository', async () => {
+    const repository: PersonajeRepository = {
+      getAll: jest.fn().mockResolvedValue([]),
+      getById: jest.fn().mockResolvedValue(null),
+      addFavorite: jest.fn().mockResolvedValue(undefined),
+    };
+    const useCase = new GetAllPersonajesUsecase(repository);
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(GetAllPersonajesUsecase);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    await expect(useCase.execute(10)).resolves.toEqual([]);
+    expect(repository.getAll).toHaveBeenCalledWith(10);
   });
 });

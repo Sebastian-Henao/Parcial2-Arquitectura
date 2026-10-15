@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeAtom, BadgeType } from '@brejcha13320/design-system-bootstrap';
 import { Personaje, RolCategoria } from '../../../core/domain/models/personaje.model';
 
 @Component({
   selector: 'app-personajes-table',
-  imports: [CommonModule, BadgeAtom],
+  imports: [BadgeAtom],
   templateUrl: './personajes-table.component.html',
 })
 export class PersonajesTableComponent {
   @Input() personajes: Personaje[] = [];
+  @Output() favoriteRequested = new EventEmitter<number>();
 
   categoryMap: Record<RolCategoria, BadgeType> = {
     'Vanguardia': 'primary',

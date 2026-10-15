@@ -10,11 +10,18 @@ import { AlertState } from '../../interfaces/state.interface';
 export class AlertComponent {
   @Input({ required: true }) alertState!: AlertState;
 
-  @Input() text: string = "";
+  @Input()   text = '';
 
-  alertClassMap: Record<AlertState, 'primary' | 'danger'> = {
+  alertClassMap: Record<AlertState, 'primary' | 'danger' | 'success'> = {
     error: 'danger',
     loading: 'primary',
+    success: 'success',
+  };
+
+  alertIconMap: Record<AlertState, string> = {
+    error: 'exclamation-triangle-fill',
+    loading: 'hourglass-split',
+    success: 'check-circle-fill',
   };
 
   getClass(): string {

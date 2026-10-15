@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PersonajesPage } from './personajes.page';
+import { PersonajeRepository } from '../../core/domain/repositories/personaje.repository';
 
 describe('PersonajesPage', () => {
   let component: PersonajesPage;
@@ -8,7 +9,17 @@ describe('PersonajesPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PersonajesPage]
+      imports: [PersonajesPage],
+      providers: [
+        {
+          provide: PersonajeRepository,
+          useValue: {
+            getAll: async () => [],
+            getById: async () => null,
+            addFavorite: async () => undefined,
+          },
+        },
+      ],
     })
     .compileComponents();
 

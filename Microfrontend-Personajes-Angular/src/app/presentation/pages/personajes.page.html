@@ -1,1 +1,31 @@
-<p>personajes.page works!</p>
+<main class="container py-4">
+  <h1 class="mb-4">Personajes</h1>
+
+  @if (state === 'loading') {
+    <app-alert
+      alertState="loading"
+      text="Cargando personajes...">
+    </app-alert>
+  }
+
+  @if (state === 'error') {
+    <app-alert
+      alertState="error"
+      text="No se pudieron cargar los personajes. Intenta de nuevo más tarde.">
+    </app-alert>
+  }
+
+  @if (favoriteNotification; as notification) {
+    <app-alert
+      [alertState]="notification.state"
+      [text]="notification.text">
+    </app-alert>
+  }
+
+  @if (state === 'success') {
+    <app-personajes-table
+      [personajes]="personajes"
+      (favoriteRequested)="addFavoritePersonaje($event)">
+    </app-personajes-table>
+  }
+</main>

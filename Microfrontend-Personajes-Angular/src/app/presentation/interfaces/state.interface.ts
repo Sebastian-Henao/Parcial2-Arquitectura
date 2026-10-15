@@ -6,4 +6,5 @@ export type State =
 
 export type AlertState =
     | 'loading'
-    |'error';
+    | 'error'
+    | 'success';

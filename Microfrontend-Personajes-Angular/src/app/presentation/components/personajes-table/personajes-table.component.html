@@ -1,1 +1,44 @@
-<p>personajes-table.component works!</p>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Alias</th>
+        <th scope="col">Juego</th>
+        <th scope="col">Habilidad</th>
+        <th scope="col">Rol</th>
+        <th scope="col"><span class="visually-hidden">Acciones</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (personaje of personajes; track personaje.id) {
+        <tr>
+          <td>{{ personaje.nombre }}</td>
+          <td>{{ personaje.alias }}</td>
+          <td>{{ personaje.juego }}</td>
+          <td>{{ personaje.habilidad }}</td>
+          <td>
+            <dsb-badge-atom
+              [text]="personaje.rol"
+              [type]="categoryMap[personaje.rol]">
+            </dsb-badge-atom>
+          </td>
+          <td class="text-end">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              type="button"
+              (click)="favoriteRequested.emit(personaje.id)">
+              Agregar a favoritos
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="text-center text-body-secondary py-4" colspan="6">
+            No hay personajes para mostrar.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

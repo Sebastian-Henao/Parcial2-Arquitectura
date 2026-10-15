@@ -1,3 +1,3 @@
 export const environments = {
-    baseUrlNode: 'htto://localhost:3002',
+    baseUrlNode: 'http://localhost:3002',
 };

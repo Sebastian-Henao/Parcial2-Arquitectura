@@ -1,21 +1,22 @@
 import { inject, Injectable } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { Personaje } from '../../domain/models/personaje.model';
+import { PersonajeRepository } from '../../domain/repositories/personaje.repository';
 
 @Injectable()
-export class PersonajeNodeRepositoryImpl {
+export class PersonajeNodeRepositoryImpl extends PersonajeRepository {
   private dataService = inject(DataService);
 
-  getAll(countPersonajes: number): Observable<Personaje[]> {
-    return this.dataService.getAllPersonajeNode(countPersonajes);
+  getAll(countPersonajes: number): Promise<Personaje[]> {
+    return firstValueFrom(this.dataService.getAllPersonajeNode(countPersonajes));
   }
 
-  getById(id: number): Observable<Personaje | null> {
-    return this.dataService.getPersonajesByIdNode(id);
+  getById(id: number): Promise<Personaje | null> {
+    return firstValueFrom(this.dataService.getPersonajesByIdNode(id));
   }
 
-  addFavorite(personajeId: number): Observable<void> {
-    return this.dataService.addFavoritePersonajeNode(personajeId);
+  addFavorite(personajeId: number): Promise<void> {
+    return firstValueFrom(this.dataService.addFavoritePersonajeNode(personajeId));
   }
 }
