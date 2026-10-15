@@ -12,6 +12,15 @@ export const routes: Routes = [
         exposedModule: './JunglersPage',
       }).then((module) => module.JunglersPage),
   },
+  {
+    path: 'misiones',
+    loadComponent: () =>
+      loadRemoteModule({
+        type: 'module',
+        remoteEntry: 'http://localhost:4003/remoteEntry.js',
+        exposedModule: './PaginaCentralMisiones',
+      }).then((module) => module.PaginaCentralMisiones),
+  },
   { path: '', redirectTo: 'lol', pathMatch: 'full' },
   { path: '**', redirectTo: 'lol' },
 ];

@@ -14,6 +14,9 @@ export class App {
   readonly navbarConfig: NavbarConfig = {
     title: 'Parcial II · Arquitectura',
     iconConfig: { icon: 'bootstrap', size: 2 },
-    navLinks: [{ text: 'LoL · Junglers', url: '/lol' }],
+    navLinks: [
+      { text: 'LoL · Junglers', url: '/lol' },
+      { text: 'Central de Misiones', url: '/misiones' },
+    ],
   };
 }

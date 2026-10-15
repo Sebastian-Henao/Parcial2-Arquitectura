@@ -17,7 +17,9 @@ tres microfrontends independientes y tres microservicios mediante Module Federat
 
 Los tres microfrontends consumen exclusivamente su API asignada. La entrada federada de Central
 de Misiones es `http://localhost:4003/remoteEntry.js` y expone `./PaginaCentralMisiones`.
-El host y las rutas se mantienen en `Client-Host-Angular`.
+El Host en `Client-Host-Angular` registra los remotes `mf-lol` y `mf-misiones`, con navegación
+en el navbar para `/lol` y `/misiones`. Personajes ya está en el monorepositorio, pero su remote
+aún no está registrado en el Host.
 
 ## Ejecución de Central de Misiones
 
@@ -47,8 +49,8 @@ y [Microfrontend-Central-Misiones-Angular/README.md](./Microfrontend-Central-Mis
 
 ## Ejecución integrada con el Host
 
-Para navegar desde el host, inicia cada API y cada MFE en su puerto indicado arriba y ejecuta
-el host:
+Para navegar a LoL o Central de Misiones desde el host, inicia sus APIs y MFE en los puertos
+indicados arriba y ejecuta el host:
 
 ```powershell
 cd Client-Host-Angular
@@ -56,8 +58,8 @@ npm install
 npm start
 ```
 
-Luego abre `http://localhost:4200`. Los remotes deben estar declarados en la configuración de
-Module Federation del host y sus rutas deben estar disponibles en el navbar.
+Luego abre `http://localhost:4200` y selecciona **LoL · Junglers** o **Central de Misiones** en
+el navbar.
 
 ## Pruebas
 
