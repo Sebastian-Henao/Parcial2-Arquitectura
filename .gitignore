@@ -1,0 +1,43 @@
+# ==========================================================
+# .gitignore general del monorepositorio Parcial II
+# ==========================================================
+
+# Node / Angular
+node_modules/
+dist/
+out-tsc/
+.angular/
+coverage/
+documentation/
+npm-debug.log
+yarn-error.log
+
+# Java / Spring Boot (Gradle y Maven)
+target/
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+HELP.md
+bin/
+out/
+
+# IDEs y editores
+.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.factorypath
+.sts4-cache/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Variables de entorno locales
+*.local
