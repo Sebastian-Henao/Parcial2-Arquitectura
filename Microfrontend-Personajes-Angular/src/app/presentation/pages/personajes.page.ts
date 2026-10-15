@@ -8,8 +8,15 @@ import { PersonajeRepository } from '../../core/domain/repositories/personaje.re
 import { Personaje, RolCategoria } from '../../core/domain/models/personaje.model';
 import { State } from '../interfaces/state.interface';
 
+/** Roles disponibles en el selector de filtros de la página. */
 const ROLES: RolCategoria[] = ['Vanguardia', 'Ladron', 'Jefe', 'Ilusionista', 'Explorador'];
 
+/**
+ * Página de presentación para consultar y filtrar personajes.
+ *
+ * Coordina los casos de uso y expone el estado necesario para mostrar
+ * el catálogo, los resultados de búsqueda y los mensajes de error.
+ */
 @Component({
   selector: 'app-personajes',
   imports: [PersonajesTableComponent, AlertComponent],
@@ -33,15 +40,32 @@ const ROLES: RolCategoria[] = ['Vanguardia', 'Ladron', 'Jefe', 'Ilusionista', 'E
   ],
 })
 export class PersonajesPage implements OnInit {
+  /** Personajes que se muestran actualmente. */
   personajes: Personaje[] = [];
+
+  /** Estado de carga y resultado de la vista. */
   state: State = 'init';
+
+  /** Opciones de rol disponibles para filtrar. */
   readonly roles = ROLES;
+
+  /** Mensaje contextual de búsqueda o error para la interfaz. */
   message = '';
 
+  /** Caso de uso para cargar el listado inicial de personajes. */
   private getAllPersonajesUseCase = inject(GetAllPersonajesUsecase);
+
+  /** Caso de uso para buscar un personaje por su ID. */
   private getPersonajesByIdUseCase = inject(GetPersonajesByIdUsecase);
+
+  /** Caso de uso para filtrar personajes por rol. */
   private getPersonajesByRoleUseCase = inject(GetPersonajesByRoleUsecase);
 
+  /**
+   * Carga el listado inicial al iniciar la página.
+   *
+   * @returns Promesa que termina cuando se actualiza el estado de carga.
+   */
   async ngOnInit(): Promise<void> {
     this.state = 'loading';
     try {
@@ -52,6 +76,12 @@ export class PersonajesPage implements OnInit {
     }
   }
 
+  /**
+   * Busca un personaje usando el valor ingresado como identificador.
+   *
+   * @param value Texto ingresado por el usuario.
+   * @returns Promesa que termina cuando se actualizan los resultados.
+   */
   async searchById(value: string): Promise<void> {
     const id = Number(value);
     if (!Number.isInteger(id) || id < 1) {
@@ -74,6 +104,12 @@ export class PersonajesPage implements OnInit {
     }
   }
 
+  /**
+   * Filtra el listado de personajes por el rol seleccionado.
+   *
+   * @param rol Categoría de rol que se desea consultar.
+   * @returns Promesa que termina cuando se actualizan los resultados.
+   */
   async searchByRole(rol: string): Promise<void> {
     this.state = 'loading';
     this.message = '';
@@ -90,6 +126,11 @@ export class PersonajesPage implements OnInit {
     }
   }
 
+  /**
+   * Restaura el listado inicial de personajes.
+   *
+   * @returns Promesa que termina cuando se recarga el listado.
+   */
   async showAll(): Promise<void> {
     this.message = '';
     await this.ngOnInit();
