@@ -1,7 +1,6 @@
 package uceva.lol.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
@@ -31,8 +30,7 @@ public class OpenApiConfig {
                         .title("MS-LoL-SPRING - API de Junglers de League of Legends")
                         .description("Microservicio con Clean Architecture que expone los 20 campeones de la jungla de LoL. "
                                 + "Parcial II - Arquitectura de Software (UCEVA).")
-                        .version("1.0.0")
-                        .contact(new Contact().name("Kevin Montes").email("kevin.montes03@uceva.edu.co")))
+                        .version("1.0.0"))
                 .servers(List.of(new Server().url("http://localhost:3004").description("Servidor local")));
     }
 }
