@@ -16,7 +16,7 @@ export class PersonajeNodeRepositoryImpl extends PersonajeRepository {
     return firstValueFrom(this.dataService.getPersonajesByIdNode(id));
   }
 
-  addFavorite(personajeId: number): Promise<void> {
-    return firstValueFrom(this.dataService.addFavoritePersonajeNode(personajeId));
+  getByRole(rol: string): Promise<Personaje[]> {
+    return firstValueFrom(this.dataService.getPersonajesByRoleNode(rol));
   }
 }

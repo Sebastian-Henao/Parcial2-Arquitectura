@@ -42,13 +42,7 @@ export class PersonajeReposiroyImpl extends PersonajeRepository {
         return this.datasource.getById(id);
     }
 
-    /**
-     * Delega a la fuente de datos la operación de agregar un favorito.
-     *
-     * @param personajeId - Identificador del personaje que se añadirá.
-     * @returns Promesa que se resuelve cuando termina la operación.
-     */
-    addFavorite(personajeId: number): Promise<void> {
-        return this.datasource.addFavorite(personajeId);
+    getByRole(rol: string): Promise<Personaje[]> {
+        return this.datasource.getByRole(rol);
     }
 }

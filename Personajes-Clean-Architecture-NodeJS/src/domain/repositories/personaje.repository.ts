@@ -26,12 +26,5 @@ export abstract class PersonajeRepository {
      */
     abstract getById(id: number): Promise<Personaje | null>;
 
-    /**
-     * Añade un personaje a la lista de favoritos.
-     *
-     * @param personajeId - Identificador del personaje que se marcará
-     * como favorito.
-     * @returns Promesa que se resuelve cuando termina la operación.
-     */
-    abstract addFavorite(personajeId: number): Promise<void>;
+    abstract getByRole(rol: string): Promise<Personaje[]>;
 }

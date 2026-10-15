@@ -6,5 +6,5 @@ export abstract class PersonajeRepository {
 
     abstract getById(id: number): Promise<Personaje | null>;
 
-    abstract addFavorite(personajeId: number): Promise<void>;
+    abstract getByRole(rol: string): Promise<Personaje[]>;
 }

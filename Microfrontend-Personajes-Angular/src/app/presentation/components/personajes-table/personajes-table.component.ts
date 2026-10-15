@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BadgeAtom, BadgeType } from '@brejcha13320/design-system-bootstrap';
 import { Personaje, RolCategoria } from '../../../core/domain/models/personaje.model';
 
@@ -9,7 +9,6 @@ import { Personaje, RolCategoria } from '../../../core/domain/models/personaje.m
 })
 export class PersonajesTableComponent {
   @Input() personajes: Personaje[] = [];
-  @Output() favoriteRequested = new EventEmitter<number>();
 
   categoryMap: Record<RolCategoria, BadgeType> = {
     'Vanguardia': 'primary',

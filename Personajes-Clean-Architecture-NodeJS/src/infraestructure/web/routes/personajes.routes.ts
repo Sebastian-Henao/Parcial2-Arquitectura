@@ -2,8 +2,8 @@ import { Router } from "express";
 import { PersonajeReposiroyImpl } from "../../repositories/personaje.repository.impl";
 import { PersonajeDatasource } from "../../datasources/personaje.datasource";
 import { GetAllPersonajesUseCase } from "../../../application/usecases/get-all-personajes.usercase";
-import { AddFavoritePersonajeUseCase } from "../../../application/usecases/add-personaje-favorite.usecase";
 import { GetPersonajeByIdUseCase } from "../../../application/usecases/get-personaje-by-id.usecase";
+import { GetPersonajesByRoleUseCase } from "../../../application/usecases/get-personajes-by-role.usecase";
 import { PersonajesController } from "../controller/personajes.controller";
 
 /**
@@ -25,8 +25,8 @@ export class PersonajesRoutes {
         const repository = new PersonajeReposiroyImpl(new PersonajeDatasource());
         const getAllPersonajes = new GetAllPersonajesUseCase(repository);
         const getPersonajesById = new GetPersonajeByIdUseCase(repository);
-        const addFavoritePersonaje = new AddFavoritePersonajeUseCase(repository);
-        const controller = new PersonajesController(getAllPersonajes, getPersonajesById, addFavoritePersonaje);
+        const getPersonajesByRole = new GetPersonajesByRoleUseCase(repository);
+        const controller = new PersonajesController(getAllPersonajes, getPersonajesById, getPersonajesByRole);
             /**
             * @openapi
             * /api/personajes/{countPersonajes}:
@@ -84,31 +84,7 @@ export class PersonajesRoutes {
              */
             router.get("/detail/:id", controller.getPersonajeById);
 
-            /**
-             * @openapi
-             * /api/personajes/favoritos:
-             *   post:
-             *     summary: Agregar personaje a favoritos
-             *     tags:
-             *       - Personajes
-             *     requestBody:
-             *       required: true
-             *       content:
-             *         application/json:
-             *           schema:
-             *             type: object
-             *             required:
-             *               - personajeId
-             *             properties:
-             *               personajeId:
-             *                 type: integer
-             *                 example: 1
-             *     responses:
-             *       201:
-             *         description: Personaje añadido a favoritos
-             */
-
-            router.post("/favoritos", controller.addFavoritePersonaje);
+            router.get("/rol/:rol", controller.getPersonajesByRole);
 
             return router;
 

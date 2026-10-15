@@ -7,7 +7,6 @@
         <th scope="col">Juego</th>
         <th scope="col">Habilidad</th>
         <th scope="col">Rol</th>
-        <th scope="col"><span class="visually-hidden">Acciones</span></th>
       </tr>
     </thead>
     <tbody>
@@ -23,18 +22,10 @@
               [type]="categoryMap[personaje.rol]">
             </dsb-badge-atom>
           </td>
-          <td class="text-end">
-            <button
-              class="btn btn-sm btn-outline-primary"
-              type="button"
-              (click)="favoriteRequested.emit(personaje.id)">
-              Agregar a favoritos
-            </button>
-          </td>
         </tr>
       } @empty {
         <tr>
-          <td class="text-center text-body-secondary py-4" colspan="6">
+          <td class="text-center text-body-secondary py-4" colspan="5">
             No hay personajes para mostrar.
           </td>
         </tr>

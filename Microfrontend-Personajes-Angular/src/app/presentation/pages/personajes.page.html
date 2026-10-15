@@ -15,17 +15,59 @@
     </app-alert>
   }
 
-  @if (favoriteNotification; as notification) {
-    <app-alert
-      [alertState]="notification.state"
-      [text]="notification.text">
-    </app-alert>
+  <div class="row g-3 align-items-end mb-4" aria-label="Buscar personajes">
+    <div class="col-sm-6 col-lg-4">
+      <label class="form-label" for="personaje-id">Buscar por ID</label>
+      <div class="input-group">
+        <input
+          #personajeId
+          id="personaje-id"
+          class="form-control"
+          type="number"
+          min="1"
+          placeholder="Ej. 1"
+          (keyup.enter)="searchById(personajeId.value)">
+        <button
+          class="btn btn-primary"
+          type="button"
+          (click)="searchById(personajeId.value)">
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-4">
+      <label class="form-label" for="personaje-rol">Filtrar por rol</label>
+      <div class="input-group">
+        <select #personajeRol id="personaje-rol" class="form-select">
+          @for (rol of roles; track rol) {
+            <option [value]="rol">{{ rol }}</option>
+          }
+        </select>
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="searchByRole(personajeRol.value)">
+          Filtrar
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <button class="btn btn-link px-0" type="button" (click)="showAll()">
+        Mostrar todos
+      </button>
+    </div>
+  </div>
+
+  @if (message && state !== 'loading') {
+    <p class="alert" [class.alert-danger]="state === 'error'" [class.alert-info]="state === 'success'">
+      {{ message }}
+    </p>
   }
 
   @if (state === 'success') {
-    <app-personajes-table
-      [personajes]="personajes"
-      (favoriteRequested)="addFavoritePersonaje($event)">
+    <app-personajes-table [personajes]="personajes">
     </app-personajes-table>
   }
 </main>
