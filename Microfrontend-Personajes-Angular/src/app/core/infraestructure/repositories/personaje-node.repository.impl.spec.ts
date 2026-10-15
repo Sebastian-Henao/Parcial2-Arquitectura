@@ -9,14 +9,14 @@ describe('PersonajeNodeRepositoryImpl', () => {
   let dataService: {
     getAllPersonajeNode: jest.Mock;
     getPersonajesByIdNode: jest.Mock;
-    addFavoritePersonajeNode: jest.Mock;
+    getPersonajesByRoleNode: jest.Mock;
   };
 
   beforeEach(() => {
     dataService = {
       getAllPersonajeNode: jest.fn().mockReturnValue(of([])),
       getPersonajesByIdNode: jest.fn().mockReturnValue(of(null)),
-      addFavoritePersonajeNode: jest.fn().mockReturnValue(of(void 0)),
+      getPersonajesByRoleNode: jest.fn().mockReturnValue(of([])),
     };
 
     TestBed.configureTestingModule({
@@ -42,8 +42,8 @@ describe('PersonajeNodeRepositoryImpl', () => {
     expect(dataService.getPersonajesByIdNode).toHaveBeenCalledWith(3);
   });
 
-  it('adapts the favorite request to a promise', async () => {
-    await expect(service.addFavorite(8)).resolves.toBeUndefined();
-    expect(dataService.addFavoritePersonajeNode).toHaveBeenCalledWith(8);
+  it('adapts the role request to a promise', async () => {
+    await expect(service.getByRole('Vanguardia')).resolves.toEqual([]);
+    expect(dataService.getPersonajesByRoleNode).toHaveBeenCalledWith('Vanguardia');
   });
 });

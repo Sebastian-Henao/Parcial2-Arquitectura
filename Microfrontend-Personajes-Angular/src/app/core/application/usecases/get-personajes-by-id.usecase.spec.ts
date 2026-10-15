@@ -6,7 +6,7 @@ describe('GetPersonajesByIdUsecase', () => {
     const repository: PersonajeRepository = {
       getAll: jest.fn().mockResolvedValue([]),
       getById: jest.fn().mockResolvedValue(null),
-      addFavorite: jest.fn().mockResolvedValue(undefined),
+      getByRole: jest.fn().mockResolvedValue([]),
     };
     const useCase = new GetPersonajesByIdUsecase(repository);
 

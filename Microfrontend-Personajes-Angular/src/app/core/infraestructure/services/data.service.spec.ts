@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -52,14 +53,45 @@ describe('DataService', () => {
     });
   });
 
-  it('posts the personaje id to the favorites endpoint', () => {
-    service.addFavoritePersonajeNode(6).subscribe();
+  it('emits null when a personaje id is not found', () => {
+    let result: unknown = 'not-emitted';
+
+    service.getPersonajesByIdNode(404).subscribe((personaje) => {
+      result = personaje;
+    });
 
     const request = httpTestingController.expectOne(
-      `${environments.baseUrlNode}/api/personajes/favoritos`,
+      `${environments.baseUrlNode}/api/personajes/detail/404`,
     );
-    expect(request.request.method).toBe('POST');
-    expect(request.request.body).toEqual({ personajeId: 6 });
-    request.flush({ message: 'Personaje añadido a favoritos' });
+    request.flush(null, { status: 404, statusText: 'Not Found' });
+
+    expect(result).toBeNull();
+  });
+
+  it('propagates errors other than not found when searching by id', () => {
+    let receivedError: unknown;
+
+    service.getPersonajesByIdNode(4).subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    const request = httpTestingController.expectOne(
+      `${environments.baseUrlNode}/api/personajes/detail/4`,
+    );
+    request.flush('server error', { status: 500, statusText: 'Server Error' });
+
+    expect(receivedError).toBeInstanceOf(HttpErrorResponse);
+  });
+
+  it('requests personajes by an encoded role from the API', () => {
+    service.getPersonajesByRoleNode('Rol Especial').subscribe();
+
+    const request = httpTestingController.expectOne(
+      `${environments.baseUrlNode}/api/personajes/rol/Rol%20Especial`,
+    );
+    expect(request.request.method).toBe('GET');
+    request.flush([]);
   });
 });

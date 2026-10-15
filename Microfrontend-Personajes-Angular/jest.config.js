@@ -12,6 +12,19 @@ module.exports = {
     verbose: true,
     testEnvironment: "jsdom",
     collectCoverage: true,
+    collectCoverageFrom: [
+        "src/app/**/*.{ts,html}",
+        "src/environments/**/*.ts",
+        "!src/**/*.spec.ts",
+    ],
+    coverageThreshold: {
+        global: {
+            branches: 100,
+            functions: 100,
+            lines: 100,
+            statements: 100,
+        },
+    },
     clearMocks: true,
     testMatch: ["**/*.spec.ts"],
     rootDir: './',
