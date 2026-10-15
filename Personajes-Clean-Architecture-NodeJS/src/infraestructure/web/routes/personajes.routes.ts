@@ -32,9 +32,10 @@ export class PersonajesRoutes {
             * /api/personajes/{countPersonajes}:
             *   get:
             *     summary: Obtener listado de personajes
-            *     description: Retorna una lista de personajes generados dinámicamente según la cantidad solicitada.
+            *     description: Retorna la cantidad solicitada de personajes. El conjunto se conserva en memoria mientras el servidor está activo.
             *     tags:
             *       - Personajes
+            *     operationId: getAllPersonajes
             *     parameters:
             *       - in: path
             *         name: countPersonajes
@@ -43,18 +44,16 @@ export class PersonajesRoutes {
             *           type: integer
             *           minimum: 1
             *           example: 10
-            *         description: Cantidad de personajes a generar
+            *         description: Número de personajes que se desea obtener
             *     responses:
             *       201:
-            *         description: Lista de personajes generados
+            *         description: Lista de personajes
             *         content:
             *           application/json:
             *             schema:
             *               type: array
             *               items:
             *                 $ref: '#/components/schemas/Personaje'
-            *       400:
-            *         description: Parámetro inválido
             */
 
             router.get("/:countPersonajes", controller.getAllPersonajes);
@@ -64,14 +63,18 @@ export class PersonajesRoutes {
              * /api/personajes/detail/{id}:
              *   get:
              *     summary: Obtener personaje por ID
+             *     description: Busca un personaje por su identificador.
              *     tags:
              *       - Personajes
+             *     operationId: getPersonajeById
              *     parameters:
              *       - in: path
              *         name: id
              *         required: true
              *         schema:
              *           type: integer
+             *           minimum: 1
+             *         description: Identificador del personaje
              *     responses:
              *       200:
              *         description: Personaje encontrado
@@ -84,6 +87,41 @@ export class PersonajesRoutes {
              */
             router.get("/detail/:id", controller.getPersonajeById);
 
+            /**
+             * @openapi
+             * /api/personajes/rol/{rol}:
+             *   get:
+             *     summary: Filtrar personajes por rol
+             *     description: Retorna los personajes cuyo rol coincide con el valor indicado.
+             *     tags:
+             *       - Personajes
+             *     operationId: getPersonajesByRole
+             *     parameters:
+             *       - in: path
+             *         name: rol
+             *         required: true
+             *         description: Categoría de rol por la que se filtran los personajes
+             *         schema:
+             *           type: string
+             *           enum:
+             *             - Vanguardia
+             *             - Ladron
+             *             - Jefe
+             *             - Ilusionista
+             *             - Explorador
+             *           example: Vanguardia
+             *     responses:
+             *       200:
+             *         description: Personajes que coinciden con el rol; puede ser una lista vacía
+             *         content:
+             *           application/json:
+             *             schema:
+             *               type: array
+             *               items:
+             *                 $ref: '#/components/schemas/Personaje'
+             *       400:
+             *         description: No se indicó el rol
+             */
             router.get("/rol/:rol", controller.getPersonajesByRole);
 
             return router;
