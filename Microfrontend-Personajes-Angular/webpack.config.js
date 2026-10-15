@@ -2,10 +2,10 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 
 module.exports = withModuleFederationPlugin({
 
-  name: 'Microfrontend-Personajes-Angular',
-
+  name: 'mf-personajes',
+  filename: "remoteEntry.js",
   exposes: {
-    './Component': './src\app\app.ts',
+    './Component': './src/app/app.ts',
   },
 
   shared: {
