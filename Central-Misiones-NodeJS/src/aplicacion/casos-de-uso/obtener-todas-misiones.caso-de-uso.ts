@@ -1,5 +1,5 @@
-import { Mision } from '../../domain/entities/mision';
-import { RepositorioMisiones } from '../../domain/repositories/mision.repository';
+import { Mision } from '../../dominio/entities/mision';
+import { RepositorioMisiones } from '../../dominio/repositories/mision.repository';
 
 export class ObtenerTodasMisiones {
   constructor(private readonly misiones: RepositorioMisiones) {}

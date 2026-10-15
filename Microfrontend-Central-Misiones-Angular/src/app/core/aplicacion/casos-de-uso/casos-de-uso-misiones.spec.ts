@@ -2,8 +2,8 @@ import { of } from 'rxjs';
 import { ActualizarEstadoMisionCasoDeUso } from './actualizar-estado-mision.caso-de-uso';
 import { ObtenerMisionPorIdCasoDeUso } from './obtener-mision-por-id.caso-de-uso';
 import { ObtenerTodasMisionesCasoDeUso } from './obtener-todas-misiones.caso-de-uso';
-import { Mision } from '../../domain/modelos/mision.modelo';
-import { RepositorioMisiones } from '../../domain/repositorios/repositorio-misiones';
+import { Mision } from '../../dominio/modelos/mision.modelo';
+import { RepositorioMisiones } from '../../dominio/repositorios/repositorio-misiones';
 
 const mision: Mision = {
   id: 'mision-1',

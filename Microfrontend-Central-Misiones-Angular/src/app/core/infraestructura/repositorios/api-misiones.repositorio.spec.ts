@@ -5,7 +5,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { ApiMisionesRepositorio } from './api-misiones.repositorio';
-import { Mision } from '../../domain/modelos/mision.modelo';
+import { Mision } from '../../dominio/modelos/mision.modelo';
 
 const mision: Mision = {
   id: 'mision-1',

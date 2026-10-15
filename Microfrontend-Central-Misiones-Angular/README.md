@@ -38,10 +38,10 @@ módulo `./PaginaCentralMisiones` para mostrar esta página en una de sus rutas.
 
 ## Arquitectura Limpia
 
-- `core/domain`: entidad, estados permitidos y contrato del repositorio.
+- `core/dominio`: entidad, estados permitidos y contrato del repositorio.
 - `core/aplicacion/casos-de-uso`: listar misiones, consultar por identificador y actualizar estado.
 - `core/infraestructura`: implementación HTTP del repositorio.
-- `presentation`: página Angular que coordina la interacción y presenta los resultados.
+- `presentacion`: página Angular que coordina la interacción y presenta los resultados.
 
 La página no accede directamente a `HttpClient`: los casos de uso dependen del contrato del
 repositorio, cuya implementación HTTP se inyecta mediante la configuración de Angular.

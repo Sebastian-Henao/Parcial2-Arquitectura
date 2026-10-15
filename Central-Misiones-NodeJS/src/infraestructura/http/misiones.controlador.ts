@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { EstadoMision, estadosMision } from '../../domain/entities/mision';
-import { ObtenerTodasMisiones } from '../../application/casos-de-uso/obtener-todas-misiones.caso-de-uso';
-import { ObtenerMisionPorId } from '../../application/casos-de-uso/obtener-mision-por-id.caso-de-uso';
-import { ActualizarEstadoMision } from '../../application/casos-de-uso/actualizar-estado-mision.caso-de-uso';
+import { EstadoMision, estadosMision } from '../../dominio/entities/mision';
+import { ObtenerTodasMisiones } from '../../aplicacion/casos-de-uso/obtener-todas-misiones.caso-de-uso';
+import { ObtenerMisionPorId } from '../../aplicacion/casos-de-uso/obtener-mision-por-id.caso-de-uso';
+import { ActualizarEstadoMision } from '../../aplicacion/casos-de-uso/actualizar-estado-mision.caso-de-uso';
 
 export class MisionesControlador {
   constructor(

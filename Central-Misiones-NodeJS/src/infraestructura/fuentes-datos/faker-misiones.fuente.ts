@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { estadosMision, Mision } from '../../domain/entities/mision';
+import { estadosMision, Mision } from '../../dominio/entities/mision';
 
 export class FakerMisionesFuente {
   private readonly misiones: Mision[] = Array.from({ length: 12 }, (_, indice) => ({

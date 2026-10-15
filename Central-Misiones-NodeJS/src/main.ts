@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { crearAplicacion } from './infrastructure/http/create-app';
+import { crearAplicacion } from './infraestructura/http/crear-aplicacion';
 
 const port = Number(process.env.PORT ?? 3003);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {

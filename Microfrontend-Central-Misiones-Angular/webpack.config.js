@@ -4,7 +4,7 @@ module.exports = withModuleFederationPlugin({
   name: 'mf-misiones',
   filename: 'remoteEntry.js',
   exposes: {
-    './PaginaCentralMisiones': './src/app/presentation/pages/central-misiones/central-misiones.page.ts',
+    './PaginaCentralMisiones': './src/app/presentacion/paginas/central-misiones/central-misiones.pagina.ts',
   },
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),

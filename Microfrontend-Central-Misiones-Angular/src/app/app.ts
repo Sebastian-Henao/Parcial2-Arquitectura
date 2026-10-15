@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PaginaCentralMisiones } from './presentation/pages/central-misiones/central-misiones.page';
+import { PaginaCentralMisiones } from './presentacion/paginas/central-misiones/central-misiones.pagina';
 
 @Component({
   selector: 'app-root',

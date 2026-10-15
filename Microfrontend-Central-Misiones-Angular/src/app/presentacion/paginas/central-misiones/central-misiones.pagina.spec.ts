@@ -3,8 +3,8 @@ import { of, throwError } from 'rxjs';
 import { ActualizarEstadoMisionCasoDeUso } from '../../../core/aplicacion/casos-de-uso/actualizar-estado-mision.caso-de-uso';
 import { ObtenerMisionPorIdCasoDeUso } from '../../../core/aplicacion/casos-de-uso/obtener-mision-por-id.caso-de-uso';
 import { ObtenerTodasMisionesCasoDeUso } from '../../../core/aplicacion/casos-de-uso/obtener-todas-misiones.caso-de-uso';
-import { Mision } from '../../../core/domain/modelos/mision.modelo';
-import { PaginaCentralMisiones } from './central-misiones.page';
+import { Mision } from '../../../core/dominio/modelos/mision.modelo';
+import { PaginaCentralMisiones } from './central-misiones.pagina';
 
 const mision: Mision = {
   id: 'mision-1',

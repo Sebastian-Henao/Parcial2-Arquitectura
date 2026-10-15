@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const { after, before, test } = require('node:test');
-const { crearAplicacion } = require('../dist/infrastructure/http/create-app');
+const { crearAplicacion } = require('../dist/infraestructura/http/crear-aplicacion');
 
 let server;
 let baseUrl;

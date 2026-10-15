@@ -37,9 +37,9 @@ Los estados válidos son `disponible`, `en-curso` y `completada`. El endpoint PA
 
 ## Capas de Arquitectura Limpia
 
-- `src/domain`: entidad de misión y contrato del repositorio.
-- `src/application/casos-de-uso`: listar, consultar por ID y actualizar estado.
-- `src/infrastructure`: fuente Faker, repositorio, controladores, rutas y Swagger.
+- `src/dominio`: entidad de misión y contrato del repositorio.
+- `src/aplicacion/casos-de-uso`: listar, consultar por ID y actualizar estado.
+- `src/infraestructura`: fuente Faker, repositorio, controladores, rutas y Swagger.
 - `src/main.ts`: composición de dependencias y arranque HTTP.
 
 La configuración permite solicitudes desde el host `http://localhost:4200` y el MFE

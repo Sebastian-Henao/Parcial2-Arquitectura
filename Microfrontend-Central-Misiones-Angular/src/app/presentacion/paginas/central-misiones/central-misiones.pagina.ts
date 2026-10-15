@@ -15,7 +15,7 @@ import {
   esEstadoMision,
   estadosMision,
   Mision,
-} from '../../../core/domain/modelos/mision.modelo';
+} from '../../../core/dominio/modelos/mision.modelo';
 
 @Component({
   selector: 'app-pagina-central-misiones',
