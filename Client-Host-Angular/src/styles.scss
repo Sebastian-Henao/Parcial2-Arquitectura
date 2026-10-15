@@ -1,0 +1,14 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #f4f6f8;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.divider-spacing {
+  height: 1.5rem;
+}
+
+main {
+  min-height: calc(100vh - 100px);
+}
