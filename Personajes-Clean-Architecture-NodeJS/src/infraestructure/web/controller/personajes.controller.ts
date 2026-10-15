@@ -22,7 +22,7 @@ export class PersonajesController {
         }, 3000);
     };
 
-    getPeronajeById = (req: Request, res: Response): void => {
+    getPersonajeById = (req: Request, res: Response): void => {
         const { id } = req.params;
 
         setTimeout(() => {

@@ -32,7 +32,7 @@ export class PersonajesRoutes {
             *           example: 10
             *         description: Cantidad de personajes a generar
             *     responses:
-            *       200:
+            *       201:
             *         description: Lista de personajes generados
             *         content:
             *           application/json:
@@ -48,21 +48,51 @@ export class PersonajesRoutes {
             
             /**
              * @openapi
-             * /api/personajes/{id}
+             * /api/personajes/detail/{id}:
              *   get:
              *     summary: Obtener personaje por ID
              *     tags:
              *       - Personajes
+             *     parameters:
+             *       - in: path
+             *         name: id
+             *         required: true
+             *         schema:
+             *           type: integer
+             *     responses:
+             *       200:
+             *         description: Personaje encontrado
+             *         content:
+             *           application/json:
+             *             schema:
+             *               $ref: '#/components/schemas/Personaje'
+             *       404:
+             *         description: Personaje no encontrado
              */
-            router.get("/detail/:id", controller.getPeronajeById);
+            router.get("/detail/:id", controller.getPersonajeById);
 
             /**
              * @openapi
-             * /api/favorites:
+             * /api/personajes/favoritos:
              *   post:
              *     summary: Agregar personaje a favoritos
              *     tags:
-             *       - Characters
+             *       - Personajes
+             *     requestBody:
+             *       required: true
+             *       content:
+             *         application/json:
+             *           schema:
+             *             type: object
+             *             required:
+             *               - personajeId
+             *             properties:
+             *               personajeId:
+             *                 type: integer
+             *                 example: 1
+             *     responses:
+             *       201:
+             *         description: Personaje añadido a favoritos
              */
 
             router.post("/favoritos", controller.addFavoritePersonaje);
